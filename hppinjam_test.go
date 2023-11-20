@@ -1,60 +1,69 @@
 package backendgcf
 
 import (
-	"context"
 	"fmt"
 	"testing"
 
-	pasproj "github.com/HRMonitorr/PasetoprojectBackend"
+	"github.com/aiteung/atdb"
 	"github.com/whatsauth/watoken"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
-//func TestGCHandlerFunc(t *testing.T) {
-//	data := GCHandlerFunc("string", "GIS", "geogis")
-//
-//	fmt.Printf("%+v", data)
-//}
+// func TestUpdateGetData(t *testing.T) {
+// 	mconn := SetConnection("MONGOSTRING", "healhero_db")
+// 	datagedung := GetAllBangunanLineString(mconn, "healhero_db")
+// 	fmt.Println(datagedung)
+// }
 
-func TestGeneratePaseto(t *testing.T) {
+func TestGeneratePasswordHash(t *testing.T) {
+	password := "riziq"
+	hash, _ := HashPassword(password) // ignore error for the sake of simplicity
+	fmt.Println("Password:", password)
+	fmt.Println("Hash:    ", hash)
+
+	match := CheckPasswordHash(password, hash)
+	fmt.Println("Match:   ", match)
+}
+func TestGeneratePrivateKeyPaseto(t *testing.T) {
 	privateKey, publicKey := watoken.GenerateKey()
 	fmt.Println(privateKey)
 	fmt.Println(publicKey)
-	hasil, err := watoken.Encode("haris", "PrivateKey")
+	hasil, err := watoken.Encode("coba", privateKey)
 	fmt.Println(hasil, err)
 }
 
-func TestUpdateData(t *testing.T) {
-	data := LonLatProperties{
-		Type:   "Polygon",
-		Name:   "cihuy",
-		Volume: "1",
-	}
-	up := UpdateNameGeo("MONGOSTRING", "gis", context.Background(), data)
-	fmt.Println(up)
+func TestHashFunction(t *testing.T) {
+	mconn := SetConnection("MONGOSTRING", "hppinjam")
+	var userdata User
+	userdata.Username = "coba"
+	userdata.Password = "riziq"
+
+	filter := bson.M{"username": userdata.Username}
+	res := atdb.GetOneDoc[User](mconn, "user", filter)
+	fmt.Println("Mongo User Result: ", res)
+	hash, _ := HashPassword(userdata.Password)
+	fmt.Println("Hash Password : ", hash)
+	match := CheckPasswordHash(userdata.Password, res.Password)
+	fmt.Println("Match:   ", match)
+
 }
 
-func TestDeleteDataGeo(t *testing.T) {
-	data := LonLatProperties{
-		Type:   "Point",
-		Name:   "gege",
-		Volume: "1",
-	}
-	up := DeleteDataGeo("MONGOSTRING", "gis", context.Background(), data)
-	fmt.Println(up)
+func TestIsPasswordValid(t *testing.T) {
+	mconn := SetConnection("MONGOSTRING", "hppinjam")
+	var userdata User
+	userdata.Username = "coba"
+	userdata.Password = "riziq"
+
+	anu := IsPasswordValid(mconn, "user", userdata)
+	fmt.Println(anu)
 }
 
 func TestInsertUser(t *testing.T) {
-	conn := GetConnectionMongo("MONGOSTRING", "gis")
-	pass, _ := pasproj.HashPass("haris")
-	data := RegisterStruct{
-		Username: "haris",
-		Password: pass,
-	}
-	ins := InsertUserdata(conn, data.Username, data.Password)
-	fmt.Println(ins)
-}
+	mconn := SetConnection("MONGOSTRING", "hppinjam")
+	var userdata User
+	userdata.Username = "coba"
+	userdata.Password = "riziq"
 
-func TestIsexist(t *testing.T) {
-	data := IsExist("token", "PublicKey")
-	fmt.Println(data)
+	nama := InsertUser(mconn, "user", userdata)
+	fmt.Println(nama)
 }

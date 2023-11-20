@@ -4,30 +4,21 @@ import (
 	"os"
 
 	"github.com/aiteung/atdb"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func GetConnectionMongo(MongoString, dbname string) *mongo.Database {
-	MongoInfo := atdb.DBInfo{
-		DBString: os.Getenv(MongoString),
+func SetConnection(MONGOCONNSTRINGENV, dbname string) *mongo.Database {
+	var DBmongoinfo = atdb.DBInfo{
+		// DBString: "mongodb+srv://admin:admin@projectexp.pa7k8.gcp.mongodb.net", //os.Getenv(MONGOCONNSTRINGENV),
+		DBString: os.Getenv(MONGOCONNSTRINGENV),
 		DBName:   dbname,
 	}
-	conn := atdb.MongoConnect(MongoInfo)
-	return conn
+	return atdb.MongoConnect(DBmongoinfo)
 }
 
-func GetAllGeoData(MongoConnect *mongo.Database, colname string) []GeoJson {
-	data := atdb.GetAllDoc[[]GeoJson](MongoConnect, colname)
-	return data
-}
-
-func InsertDataLonlat(MongoConn *mongo.Database, colname string, coordinate [][]float64, name, volume, tipe string) (InsertedID interface{}) {
-	req := new(LonLatProperties)
-	req.Type = tipe
-	req.Coordinates = coordinate
-	req.Name = name
-	req.Volume = volume
-
-	ins := atdb.InsertOneDoc(MongoConn, colname, req)
-	return ins
+func IsPasswordValid(mongoconn *mongo.Database, collection string, userdata User) bool {
+	filter := bson.M{"username": userdata.Username}
+	res := atdb.GetOneDoc[User](mongoconn, collection, filter)
+	return CheckPasswordHash(userdata.Password, res.Password)
 }
