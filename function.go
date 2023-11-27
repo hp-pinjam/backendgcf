@@ -1,7 +1,7 @@
 package backendgcf
 
 import (
-	pasproj "github.com/GIS-RIZIQ/gisbackend"
+	pasproj "github.com/HRMonitorr/PasetoprojectBackend"
 	"github.com/whatsauth/watoken"
 	"go.mongodb.org/mongo-driver/mongo"
 	"golang.org/x/crypto/bcrypt"
