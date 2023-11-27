@@ -3,7 +3,7 @@ module github.com/hp-pinjam/backendgcf
 go 1.20
 
 require (
-	github.com/GIS-RIZIQ/gisbackend v0.0.4
+	github.com/HRMonitorr/PasetoprojectBackend v0.0.11
 	github.com/aiteung/atdb v0.1.3
 	github.com/petapedia/peda v0.1.1
 	github.com/whatsauth/watoken v0.1.3
@@ -14,7 +14,6 @@ require (
 require (
 	aidanwoods.dev/go-paseto v1.5.0 // indirect
 	aidanwoods.dev/go-result v0.1.0 // indirect
-	github.com/HRMonitorr/PasetoprojectBackend v0.0.11 // indirect
 	github.com/go-sql-driver/mysql v1.7.1 // indirect
 	github.com/golang-sql/civil v0.0.0-20220223132316-b832511892a9 // indirect
 	github.com/golang-sql/sqlexp v0.1.0 // indirect

@@ -7,8 +7,6 @@ github.com/Azure/azure-sdk-for-go/sdk/azcore v1.1.2/go.mod h1:uGG2W01BaETf0Ozp+Q
 github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.2.1/go.mod h1:gLa1CL2RNE4s7M3yopJ/p0iq5DdY6Yv5ZUt9MTRZOQM=
 github.com/Azure/azure-sdk-for-go/sdk/internal v1.0.0/go.mod h1:eWRD7oawr1Mu1sLCawqVc0CUiF43ia3qQMxLscsKQ9w=
 github.com/AzureAD/microsoft-authentication-library-for-go v0.8.1/go.mod h1:4qFor3D/HDsvBME35Xy9rwW9DecL+M2sNw1ybjPtwA0=
-github.com/GIS-RIZIQ/gisbackend v0.0.4 h1:rnZe9Btey7YgDt+DqyJJ7LCVva14AGYqOc6gGB+yil0=
-github.com/GIS-RIZIQ/gisbackend v0.0.4/go.mod h1:hU+L1o8aA7kwFo+SCYitDfzOxDj17RySPOFOp2ozbio=
 github.com/HRMonitorr/PasetoprojectBackend v0.0.11 h1:PfFtY+qQtB2RR+DW5+qx9WI1yT1fCfIpOUYwqee5cmU=
 github.com/HRMonitorr/PasetoprojectBackend v0.0.11/go.mod h1:sZ3JF5q7Xobgbuw76EnuyN20/YdW4jC+cyo6x9Z5L2c=
 github.com/aiteung/atdb v0.1.3 h1:1Q34f26/oCu2QETlDd/nyJJGRgqQN5UOHRObXtrKBO8=
