@@ -2,6 +2,7 @@ package backendgcf
 
 import (
 	pasproj "github.com/GIS-RIZIQ/gisbackend"
+	"github.com/whatsauth/watoken"
 	"go.mongodb.org/mongo-driver/mongo"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -21,4 +22,12 @@ func HashPassword(password string) (string, error) {
 func CheckPasswordHash(password, hash string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
 	return err == nil
+}
+
+func IsExist(Tokenstr, PublicKey string) bool {
+	id := watoken.DecodeGetId(PublicKey, Tokenstr)
+	if id == "" {
+		return false
+	}
+	return true
 }
