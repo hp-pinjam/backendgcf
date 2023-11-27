@@ -56,26 +56,26 @@ func InsertUser(db *mongo.Database, collection string, userdata User) string {
 	return "Ini username : " + userdata.Username + "ini password : " + userdata.Password
 }
 
-func Register(Mongoenv, dbname string, r *http.Request) string {
-	resp := new(pasproj.Credential)
-	userdata := new(RegisterStruct)
-	resp.Status = false
-	conn := GetConnectionMongo(Mongoenv, dbname)
-	err := json.NewDecoder(r.Body).Decode(&userdata)
-	if err != nil {
-		resp.Message = "error parsing application/json: " + err.Error()
-	} else {
-		resp.Status = true
-		hash, err := pasproj.HashPass(userdata.Password)
-		if err != nil {
-			resp.Message = "Gagal Hash Password" + err.Error()
-		}
-		InsertUserdata(conn, userdata.Username, hash)
-		resp.Message = "Berhasil Input data"
-	}
-	response := pasproj.ReturnStringStruct(resp)
-	return response
-}
+// func Register(Mongoenv, dbname string, r *http.Request) string {
+// 	resp := new(pasproj.Credential)
+// 	userdata := new(RegisterStruct)
+// 	resp.Status = false
+// 	conn := GetConnectionMongo(Mongoenv, dbname)
+// 	err := json.NewDecoder(r.Body).Decode(&userdata)
+// 	if err != nil {
+// 		resp.Message = "error parsing application/json: " + err.Error()
+// 	} else {
+// 		resp.Status = true
+// 		hash, err := pasproj.HashPass(userdata.Password)
+// 		if err != nil {
+// 			resp.Message = "Gagal Hash Password" + err.Error()
+// 		}
+// 		InsertUserdata(conn, userdata.Username, hash)
+// 		resp.Message = "Berhasil Input data"
+// 	}
+// 	response := pasproj.ReturnStringStruct(resp)
+// 	return response
+// }
 
 func Login(Privatekey, MongoEnv, dbname, Colname string, r *http.Request) string {
 	var resp pasproj.Credential
