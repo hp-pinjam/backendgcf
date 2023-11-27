@@ -11,11 +11,11 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func GCFHandler(MONGOCONNSTRINGENV, dbname, collectionname string) string {
-	mconn := SetConnection(MONGOCONNSTRINGENV, dbname)
-	datagedung := GetAllBangunanLineString(mconn, collectionname)
-	return GCFReturnStruct(datagedung)
-}
+// func GCFHandler(MONGOCONNSTRINGENV, dbname, collectionname string) string {
+// 	mconn := SetConnection(MONGOCONNSTRINGENV, dbname)
+// 	datagedung := GetAllBangunanLineString(mconn, collectionname)
+// 	return GCFReturnStruct(datagedung)
+// }
 
 func GCFPostHandler(PASETOPRIVATEKEYENV, MONGOCONNSTRINGENV, dbname, collectionname string, r *http.Request) string {
 	var Response Credential
