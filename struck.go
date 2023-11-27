@@ -17,3 +17,8 @@ type Credential struct {
 	Token   string `json:"token,omitempty" bson:"token,omitempty"`
 	Message string `json:"message,omitempty" bson:"message,omitempty"`
 }
+
+type RegisterStruct struct {
+	Username string `json:"username" bson:"username"`
+	Password string `json:"password" bson:"password"`
+}
