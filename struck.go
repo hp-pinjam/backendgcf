@@ -19,8 +19,8 @@ type Credential struct {
 }
 
 type RegisterStruct struct {
-	Username    string `json:"username" bson:"username"`
-	Password    string `json:"password" bson:"password"`
-	PhoneNumber string `json:"phone_number" bson:"phone_number"`
-	Email       string `json:"email" bson:"email"`
+	Username string `json:"username" bson:"username"`
+	Password string `json:"password" bson:"password"`
+	// PhoneNumber string `json:"phone_number" bson:"phone_number"`
+	// Email       string `json:"email" bson:"email"`
 }
