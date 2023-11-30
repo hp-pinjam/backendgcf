@@ -1,7 +1,6 @@
 package backendgcf
 
 import (
-	pasproj "github.com/hp-pinjam/backendgcf"
 	"github.com/whatsauth/watoken"
 	"go.mongodb.org/mongo-driver/mongo"
 	"golang.org/x/crypto/bcrypt"
@@ -11,7 +10,7 @@ func InsertUserdata(MongoConn *mongo.Database, username, password string) (Inser
 	req := new(RegisterStruct)
 	req.Username = username
 	req.Password = password
-	return pasproj.InsertOneDoc(MongoConn, "user", req)
+	return InsertOneDoc(MongoConn, "user", req)
 }
 
 func HashPassword(password string) (string, error) {

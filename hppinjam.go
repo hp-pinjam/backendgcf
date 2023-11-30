@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/aiteung/atdb"
-	pasproj "github.com/hp-pinjam/backendgcf"
 	"github.com/petapedia/peda"
 	"github.com/whatsauth/watoken"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -57,7 +56,7 @@ func InsertUser(db *mongo.Database, collection string, userdata User) string {
 }
 
 func Register(Mongoenv, dbname string, r *http.Request) string {
-	resp := new(pasproj.Credential)
+	resp := new(Credential)
 	userdata := new(RegisterStruct)
 	resp.Status = false
 	conn := GetConnectionMongo(Mongoenv, dbname)
@@ -66,20 +65,20 @@ func Register(Mongoenv, dbname string, r *http.Request) string {
 		resp.Message = "error parsing application/json: " + err.Error()
 	} else {
 		resp.Status = true
-		hash, err := pasproj.HashPass(userdata.Password)
+		hash, err := HashPassword(userdata.Password)
 		if err != nil {
 			resp.Message = "Gagal Hash Password" + err.Error()
 		}
 		InsertUserdata(conn, userdata.Username, hash)
 		resp.Message = "Berhasil Input data"
 	}
-	response := pasproj.ReturnStringStruct(resp)
+	response := ReturnStringStruct(resp)
 	return response
 }
 
 func Login(Privatekey, MongoEnv, dbname, Colname string, r *http.Request) string {
-	var resp pasproj.Credential
-	mconn := pasproj.MongoCreateConnection(MongoEnv, dbname)
+	var resp Credential
+	mconn := SetConnection(MongoEnv, dbname)
 	var datauser peda.User
 	err := json.NewDecoder(r.Body).Decode(&datauser)
 	if err != nil {
@@ -98,5 +97,10 @@ func Login(Privatekey, MongoEnv, dbname, Colname string, r *http.Request) string
 			resp.Message = "Password Salah"
 		}
 	}
-	return pasproj.ReturnStringStruct(resp)
+	return GCFReturnStruct(resp)
+}
+
+func ReturnStringStruct(Data any) string {
+	jsonee, _ := json.Marshal(Data)
+	return string(jsonee)
 }
