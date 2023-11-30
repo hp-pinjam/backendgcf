@@ -1,6 +1,8 @@
 package backendgcf
 
 import (
+	"context"
+	"fmt"
 	"os"
 
 	"github.com/aiteung/atdb"
@@ -30,4 +32,12 @@ func IsPasswordValid(mongoconn *mongo.Database, collection string, userdata User
 	filter := bson.M{"username": userdata.Username}
 	res := atdb.GetOneDoc[User](mongoconn, collection, filter)
 	return CheckPasswordHash(userdata.Password, res.Password)
+}
+
+func InsertOneDoc(db *mongo.Database, collection string, doc interface{}) (insertedID interface{}) {
+	insertResult, err := db.Collection(collection).InsertOne(context.TODO(), doc)
+	if err != nil {
+		fmt.Printf("InsertOneDoc: %v\n", err)
+	}
+	return insertResult.InsertedID
 }
