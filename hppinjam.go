@@ -43,10 +43,10 @@ func GCFPostHandler(PASETOPRIVATEKEYENV, MONGOCONNSTRINGENV, dbname, collectionn
 	return GCFReturnStruct(Response)
 }
 
-func GCFReturnStruct(DataStuct any) string {
-	jsondata, _ := json.Marshal(DataStuct)
-	return string(jsondata)
-}
+// func GCFReturnStruct(DataStuct any) string {
+// 	jsondata, _ := json.Marshal(DataStuct)
+// 	return string(jsondata)
+// }
 
 func InsertUser(db *mongo.Database, collection string, userdata User) string {
 	hash, _ := HashPassword(userdata.Password)
